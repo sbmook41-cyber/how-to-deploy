@@ -49,6 +49,19 @@
   details>summary .chev::after{content:"펼쳐보기 ▾";}
   details[open]>summary .chev::after{content:"접기 ▴";}
   details .inner{padding:0 24px 20px;}
+  .fork{display:flex;gap:12px;flex-wrap:wrap;}
+  .fork a{flex:1 1 220px;text-decoration:none;color:var(--ink);border:2px solid var(--line);
+    border-radius:14px;padding:14px 16px;transition:all .15s ease;display:block;}
+  .fork a:hover{transform:translateY(-2px);}
+  .fork a.first{border-color:#f6c98a;background:#fff9f0;}
+  .fork a.first:hover{border-color:#f0a34a;}
+  .fork a.exp{border-color:#b7e6c8;background:#f4fbf6;}
+  .fork a.exp:hover{border-color:#22c55e;}
+  .fork .lead{font-weight:800;font-size:16px;margin-bottom:4px;}
+  .fork .desc{font-size:14px;color:#4b5563;line-height:1.6;}
+  .fork .go{font-size:13px;font-weight:800;margin-top:6px;}
+  .fork a.first .go{color:#c2740a;}
+  .fork a.exp .go{color:#16a34a;}
 </style>
 </head>
 <body>
@@ -74,6 +87,22 @@
   </div>
 
   <div class="card">
+    <h2>🧭 어디서 시작할까요?</h2>
+    <div class="fork">
+      <a class="first" href="#firsttime">
+        <div class="lead">🟠 처음이신가요?</div>
+        <div class="desc">GitHub·Vercel·Supabase가 처음이라면, <b>‘처음 한 번만’ 준비</b>부터 하세요.</div>
+        <div class="go">여기를 누르면 그 부분이 펼쳐져요 ▾</div>
+      </a>
+      <a class="exp" href="#every">
+        <div class="lead">🟢 전에 해보셨나요?</div>
+        <div class="desc">계정·연결이 이미 됐다면, 바로 <b>‘매번 하는 3단계’</b>로 가세요.</div>
+        <div class="go">여기를 누르면 바로 이동해요 ↓</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="card" id="every">
     <h2>⚡ 앱 만들 때마다 — 이게 전부예요 <span class="badge b-every">매번</span></h2>
     <div class="step"><div class="n">1</div><div class="t">Claude가 코드를 <b>GitHub(코드 창고)</b>에 자동으로 올립니다. <span class="who who-claude">Claude가 함</span></div></div>
     <div class="step"><div class="n">2</div><div class="t"><b>Vercel</b>에서 <code>Import</code> → <code>Deploy</code> 두 번 클릭. (Claude가 어디를 누를지 알려줘요.) <span class="who who-me">내가 클릭</span></div></div>
@@ -103,7 +132,7 @@
     </div>
   </details>
 
-  <details>
+  <details id="firsttime">
     <summary>🧰 처음 한 번만 — 아직 준비가 안 됐다면 <span class="badge b-once">최초 1회</span> <span class="chev"></span></summary>
     <div class="inner">
       <p style="margin-top:0;"><b>이미 계정이 있고 전에 배포해 본 분</b>은 이 부분을 건너뛰어도 됩니다. (Claude가 알아서 확인해요.) <b>처음이거나 새 컴퓨터</b>라면 아래를 한 번만 해두면 됩니다.</p>
@@ -134,5 +163,14 @@
   <div class="foot">개발을 몰라도 괜찮아요 · 막히면 화면을 캡처해서 Claude에게 물어보세요</div>
 
 </div>
+<script>
+  // '처음이신가요?'를 누르면 '처음 한 번만' 부분을 자동으로 펼쳐서 보여줍니다.
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(){
+      var el = document.getElementById(a.getAttribute('href').slice(1));
+      if (el && el.tagName === 'DETAILS') el.open = true;
+    });
+  });
+</script>
 </body>
 </html>
